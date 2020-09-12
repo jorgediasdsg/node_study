@@ -53,14 +53,20 @@ app.get('/table/:x/:y/:z', (request, response)=>{
         }
 
         const table = {
-            top: top,
-            legs: leg,
-            totalArea: top.totalArea+leg.totalArea
+            name: 'Table',
+            components: {
+                top: top,
+                legs: leg,
+            },
+            totalArea: top.totalArea+leg.totalArea,
+            m2: totalArea/1000,
+            price: m2*90,
+            tips: "You can cut in Leoroy Merlin store and build at home. =)"
         }
 
         return response.json(table);
     }
-    
+
 })
 
 app.listen(3333);
