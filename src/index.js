@@ -40,7 +40,8 @@ app.get('/table/:x/:y/:z', (request, response)=>{
             length: x,
             width: y,
             depth: 15,
-            totalArea: x*y*2
+            totalArea: x*y*2,
+            resume: "This item is top of table."
         }
 
         const leg = {
@@ -49,24 +50,32 @@ app.get('/table/:x/:y/:z', (request, response)=>{
             width: 100,
             depth: 15,
             // 100mm width more 2 for make leg in L, more 4 units.
-            totalArea: z*100*2*4
+            totalArea: z*100*2*4,
+            resume: "This item is the 4 legs of table, and the lag use 2 wood in 'L'."
         }
+
+        const totalArea = top.totalArea+leg.totalArea;
+
+        const m2 = totalArea/1000000;
+        const price = m2*90;
+        const manual = "https://encurtador.com.br/gLWZ4"
+        const tips = "You can cut in Leoroy Merlin store and build at home. =)"
+
 
         const table = {
             name: 'Table',
             components: {
-                top: top,
-                legs: leg,
+                top,
+                leg,
             },
-            totalArea: top.totalArea+leg.totalArea,
-            m2: totalArea/1000,
-            price: m2*90,
-            tips: "You can cut in Leoroy Merlin store and build at home. =)"
+            totalArea,
+            m2,
+            price,
+            manual,
+            tips
         }
-
         return response.json(table);
     }
-
 })
 
 app.listen(3333);
