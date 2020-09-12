@@ -59,7 +59,7 @@ app.get('/table/:x/:y/:z', (request, response)=>{
         const m2 = totalArea/1000000;
         const price = m2*90;
         const manual = "https://encurtador.com.br/gLWZ4"
-        const tips = "You can cut in Leoroy Merlin store and build at home. =)"
+        const tips = "You can cut in Leroy Merlin store and build at home. =)"
 
 
         const table = {
