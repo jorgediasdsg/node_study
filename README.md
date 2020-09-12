@@ -6,9 +6,11 @@ Project 4 training node backend.
 
 The idea is send measures and return list wood to cut.
 
-For install:
+#### How to do:
 
--Clone Project
+-Clone Project ``git git@github.com:jorgediasdsg/node_study.git``
+
+-Enter in the folder ``cd node_study``
 
 -Run command <b>yarn</b> in base folder
 
