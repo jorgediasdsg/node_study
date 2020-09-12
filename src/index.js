@@ -78,4 +78,6 @@ app.get('/table/:x/:y/:z', (request, response)=>{
     }
 })
 
+console.log("Open app here: http://localhost:3333/table/2000/600/800")
+
 app.listen(3333);
