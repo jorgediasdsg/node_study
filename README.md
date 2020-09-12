@@ -7,7 +7,11 @@ Project 4 training node backend.
 The idea is send measures and return list wood to cut.
 
 For install:
+
 -Clone Project
+
 -Run command <b>yarn</b> in base folder
+
 -Run node src/index.js
+
 -Call url: hyyp://localhost:3333/table/2000/600/750 for measure table in milimeters.
