@@ -3,7 +3,7 @@ const express =  require('express');
 const app = express();
 
 app.get('/', (request, response)=>{
-    return response.json({message:'Hi there!, you need call to measures /measure/x/y for server response. Tks!'})
+    return response.json({message:'Hi there!, you need call to measures /measure/x/y for server response. Tks! '})
 })
 
 app.get('/measure/:x/:y', (request, response)=>{
