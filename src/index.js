@@ -21,20 +21,32 @@ function logRequest(request, response, next){
 app.use(logRequest);
 
 app.get('/list', (request, response)=>{
-
+       
     const totalAreaList = furnituresList
         .reduce((accumulator, element) => accumulator + element.totalAreaM2, 0)
 
+    const price = totalAreaList*90;
+    const tips = "You can cut in Leroy Merlin store and build at home. =)"
+
+
     return response.json({
         furnituresList,
-        totalAreaList
+        totalAreaList,
+        price,
+        tips
     });
 });
 
 app.post('/item', (request, response)=>{
     const { width, length, units } = request.body;
-    if ( isNaN(length) || isNaN(width) )  {
+    if ( 
+        length<=0 || length>2700 || 
+        width<=0 || width>2700 ||
+        units<=0 || units>100
+        ){
+
         return response.json({message: 'Please, enter a valid number!'});
+
     } else {
 
         const totalAreaM2 = length*width*units/1000000;
@@ -44,9 +56,10 @@ app.post('/item', (request, response)=>{
             name: 'Item',
             length,
             width,
-            units,
             depth: 15,
-            totalAreaM2
+            units,
+            totalAreaM2,
+            label: "ITEM: "+length+"X"+width+"mm"
         }
         
         furnituresList.push(item);
@@ -58,10 +71,10 @@ app.post('/table', (request, response)=>{
     const { length, width, depth, units} = request.body;
 
     if (    
-        isNaN(length) || 
-        isNaN(width) || 
-        isNaN(depth)  || 
-        isNaN(units) 
+        length<=0 || length>2700 || 
+        width<=0 || width>2700 ||
+        depth<600 || depth>1200 ||
+        units<=0 || units>100
         ){
 
         return response.json({message:'Please, input a valid number!'})
@@ -74,7 +87,7 @@ app.post('/table', (request, response)=>{
             width: width,
             depth: 15,
             totalAreaM2: length*width*2/1000000,
-            resume: "This item is top of table."
+            label: "TOP: "+length+"X"+width+"mm"
         }
         
         const leg = {
@@ -84,16 +97,10 @@ app.post('/table', (request, response)=>{
             depth: 15,
             // 100mm width more 2 for make leg in L, more 4 units/convert to metters.
             totalAreaM2: depth*100*2*4/1000000,
-            resume: "This item is the 4 legs of table, and the lag use 2 wood in 'L'."
+            label: "LEG: "+length+"X"+width+"mm"
         }
         
-        const totalAreaM2 = top.totalAreaM2+leg.totalAreaM2;
-        
-        const m2 = totalAreaM2;
-        const price = m2*90;
-        const manual = "https://encurtador.com.br/gLWZ4"
-        const tips = "You can cut in Leroy Merlin store and build at home. =)"
-        
+        const totalAreaM2 = top.totalAreaM2+leg.totalAreaM2*units;
         
         const table = {
             id: uuid(),
@@ -102,15 +109,99 @@ app.post('/table', (request, response)=>{
                 top,
                 leg,
             },
-            totalAreaM2,
-            m2,
-            price,
-            manual,
-            tips
+            label: "TABLE: "+length+"X"+width+"X"+depth+"mm",
+            units,
+            totalAreaM2
         }
         furnituresList.push(table);
         return response.json(table);
     }
+})
+
+app.put('/table/:id', (request, response)=>{
+    const { id } = request.params;
+    const { length, width, depth, units} = request.body;
+
+    const tableIndex = furnituresList.findIndex(table => table.id == id);
+
+    if (tableIndex < 0){
+        return response.status(400).json({ error: 'Table not found.' })
+    }
+
+    if (    
+        length<=0 || length>2700 || 
+        width<=0 || width>2700 ||
+        depth<600 || depth>1200 ||
+        units<=0 || units>100
+        ){
+
+        return response.json.status(400).json({message:'Please, input a valid number!'})
+
+    } else {
+
+        const top = {
+            name: "top",
+            length: length,
+            width: width,
+            depth: 15,
+            totalAreaM2: length*width*2/1000000,
+            label: "TOP: "+length+"X"+width+"mm"
+        }
+        
+        const leg = {
+            name: "leg",
+            length: depth,
+            width: 100,
+            depth: 15,
+            // 100mm width more 2 for make leg in L, more 4 units/convert to metters.
+            totalAreaM2: depth*100*2*4/1000000,
+            label: "LEG: "+length+"X"+width+"mm"
+        }
+        
+        const totalAreaM2 = top.totalAreaM2+leg.totalAreaM2*units;
+        
+        const table = {
+            id,
+            name: 'Table',
+            components: {
+                top,
+                leg,
+            },
+            label: "TABLE: "+length+"X"+width+"mm",
+            units,
+            totalAreaM2
+        }
+
+        furnituresList[tableIndex] = table;
+        return response.json(table);
+    }
+
+})
+
+app.delete('/table/:id', (request, response)=>{
+    const { id } = request.params;
+    
+    const tableIndex = furnituresList.findIndex(table => table.id == id);
+
+    if (tableIndex < 0){
+        return response.status(400).json({ error: 'Table not found.' })
+    }
+
+    furnituresList.splice(tableIndex, 1);
+    return response.status(204).send();
+})
+
+app.delete('/item/:id', (request, response)=>{
+    const { id } = request.params;
+    
+    const itemIndex = furnituresList.findIndex(item => item.id == id);
+
+    if (itemIndex < 0){
+        return response.status(400).json({ error: 'item not found.' })
+    }
+
+    furnituresList.splice(itemIndex, 1);
+    return response.status(204).send();
 })
 
 console.log("Open app here: http://localhost:3333/table/2000/600/800")
