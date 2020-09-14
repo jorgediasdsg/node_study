@@ -22,11 +22,8 @@ app.use(logRequest);
 
 app.get('/list', (request, response)=>{
 
-
     const totalAreaList = furnituresList
         .reduce((accumulator, element) => accumulator + element.totalAreaM2, 0)
-
-
 
     return response.json({
         furnituresList,
@@ -57,10 +54,15 @@ app.post('/item', (request, response)=>{
     }
 })
 
-app.get('/table/:x/:y/:z', (request, response)=>{
-    const {x, y, z} = request.params;
+app.post('/table', (request, response)=>{
+    const { length, width, depth, units} = request.body;
 
-    if ( isNaN(x) || isNaN(y) || isNaN(z) ){
+    if (    
+        isNaN(length) || 
+        isNaN(width) || 
+        isNaN(depth)  || 
+        isNaN(units) 
+        ){
 
         return response.json({message:'Please, input a valid number!'})
 
@@ -68,26 +70,26 @@ app.get('/table/:x/:y/:z', (request, response)=>{
 
         const top = {
             name: "top",
-            length: x,
-            width: y,
+            length: length,
+            width: width,
             depth: 15,
-            totalArea: x*y*2,
+            totalAreaM2: length*width*2/1000000,
             resume: "This item is top of table."
         }
         
         const leg = {
             name: "leg",
-            length: z,
+            length: depth,
             width: 100,
             depth: 15,
-            // 100mm width more 2 for make leg in L, more 4 units.
-            totalArea: z*100*2*4,
+            // 100mm width more 2 for make leg in L, more 4 units/convert to metters.
+            totalAreaM2: depth*100*2*4/1000000,
             resume: "This item is the 4 legs of table, and the lag use 2 wood in 'L'."
         }
         
-        const totalArea = top.totalArea+leg.totalArea;
+        const totalAreaM2 = top.totalAreaM2+leg.totalAreaM2;
         
-        const m2 = totalArea/1000000;
+        const m2 = totalAreaM2;
         const price = m2*90;
         const manual = "https://encurtador.com.br/gLWZ4"
         const tips = "You can cut in Leroy Merlin store and build at home. =)"
@@ -100,7 +102,7 @@ app.get('/table/:x/:y/:z', (request, response)=>{
                 top,
                 leg,
             },
-            totalArea,
+            totalAreaM2,
             m2,
             price,
             manual,
