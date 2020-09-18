@@ -16,7 +16,7 @@ The idea is send measures and return list wood to cut.
 
 -Run ``node src/index.js``
 
--Call url: hyyp://localhost:3333/table/2000/600/750 for measure table in milimeters.
+-Call url: http://localhost:3333/table/2000/600/750 for measure table in milimeters.
 
 #### Or
 
