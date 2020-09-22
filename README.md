@@ -125,7 +125,7 @@ Neste projeto o frontend deverá:
 $ git clone git@github.com:jorgediasdsg/node_study.git
 
 # Go into the folder of the project
-$ cd node_study
+$ cd node_study/backend
 
 # Install the dependencies
 $ yarn
@@ -133,8 +133,14 @@ $ yarn
 #If you want to run the project
 node src/index.js
 
-#If you want to send measures table
--Call url: http://localhost:3333/table/2000/600/750 for measure table in milimeters.  
+# Go into the folder of the project
+$ cd node_study/frontend
+
+# Install the dependencies
+$ yarn
+
+#If you want to run the project
+yarn dev
 ```
 <hr>
 
