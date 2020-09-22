@@ -60,6 +60,18 @@ In this project the backend should:
 
 - You should be able to estimate how many will cost approximately $ 90 per square meter.
 
+In this project the frontend should:
+
+- You should connect to the backend and list the items.
+
+- There should be an add button to add items.
+  
+- It must present a total of square meters.
+  
+- It should show total in estimated price.
+  
+- You must automatically update the list and items with each addition.
+
 
 :brazil:
 
@@ -74,6 +86,19 @@ Neste projeto o backend deverá:
 - Deverá conseguir retornar uma lista de todos os ítens enviados com a metragem total em metros quadrados.
 
 - Deverá conseguir prezumir quantos custará aproximadamente com valor de $90 por metro quadrado.
+
+Neste projeto o frontend deverá:
+
+- Deverá conectar ao backend e listar os itens.
+  
+-  Deverá ter um botão add para adicionar itens.
+   
+- Deverá apresentar total de metros quadrados.
+  
+- Deverá mostrar total em preço estimado.
+  
+- Devetá atualizar autimaticamente a lista e os itens a cada adição.
+  
 
 </p>
 
