@@ -134,7 +134,7 @@ $ yarn
 node src/index.js
 
 # Go into the folder of the project
-$ cd node_study/frontend
+$ cd ../frontend
 
 # Install the dependencies
 $ yarn
