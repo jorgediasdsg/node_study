@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import api from './services/api';
 
 import Header from './components/Header'
 
 import './App.css'
-import backgroundImage from './assets/background.jpeg';
 /**
  * Component
  * Props
@@ -12,21 +12,48 @@ import backgroundImage from './assets/background.jpeg';
 
 function App() {
     
-    const [projects, setProjects] = useState(['Dev', 'Devops']);
+    const [furnituresList, setFurnituresList] = useState([]);
+    const [totalAreaList, setTotalAreaList] = useState([]);
+    const [price, setPrice] = useState([]);
 
-    function handleAddProject(){
-        setProjects([...projects, `New project ${Date.now()}`]);
+    useEffect(() => {
+        api.get('list').then(response => {
+            setFurnituresList(response.data.furnituresList);
+            setTotalAreaList(response.data.totalAreaList);
+            setPrice(response.data.price);
+        })
+    }, [furnituresList])
+
+    async function handleAddItem(){
+        // setFurnituresList([...furnituresList, `New project ${Date.now()}`]);
+        const minLength = Math.ceil(1);
+        const maxLength = Math.floor(1800);
+        const minWidth = Math.ceil(1);
+        const maxWidth = Math.floor(2700);
+        const minUnits = Math.ceil(1);
+        const maxUnits = Math.floor(100);
+        const length = Math.floor(Math.random() * (maxLength - minLength)) + minLength;
+        const width = Math.floor(Math.random() * (maxWidth - minWidth)) + minWidth;
+        const units = Math.floor(Math.random() * (maxUnits - minUnits)) + minUnits;
+        const response = await api.post('item', {
+            name: `item ${Date.now()}`,
+            length,
+            width,
+            units
+        })
+        const item = response.data;
+        setFurnituresList([...furnituresList, item])
     }
 
     return (
         <>
-            <Header title="Projects" />
+            <Header title="Item list" />
 
-            <img width="300" src={backgroundImage} />
-
-            <button type="buttom" onClick={handleAddProject}>Adicionar</button>
+            <button type="buttom" onClick={handleAddItem}>Add</button>
+            <p>Total Área: { Math.round(totalAreaList)}m2</p>
+            <p>Total Price: ${Math.round(price)}</p>
             <ul>
-                {projects.map(project => <li key={project}>{project}</li>)}
+                {furnituresList.map(item => <li key={item.id}>{item.name} - {item.label}</li>)}
             </ul>
         </>
     )

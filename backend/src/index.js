@@ -1,7 +1,10 @@
 const express =  require('express');
 const { uuid, isUuid } = require('uuidv4');
+const cors = require('cors');
+
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 
 const furnituresList = [];
@@ -48,7 +51,7 @@ app.get('/list', (request, response)=>{
 });
 
 app.post('/item', (request, response)=>{
-    const { width, length, units } = request.body;
+    const { width, length, units, name } = request.body;
     if ( 
         length<=0 || length>2700 || 
         width<=0 || width>2700 ||
@@ -63,13 +66,13 @@ app.post('/item', (request, response)=>{
 
         const item = {
             id: uuid(),
-            name: 'Item',
+            name,
             length,
             width,
             depth: 15,
             units,
             totalAreaM2,
-            label: "ITEM: "+length+"X"+width+"mm"
+            label: length+"X"+width+"mm"
         }
         
         furnituresList.push(item);
