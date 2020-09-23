@@ -4,6 +4,45 @@
 
 <p align="center">This is a personal training project for the Rocketseat GoStack course. In this project we will be build API using NodeJS and a lot of javascript.</p>
 
+<p align="center">
+
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/jorgediasdsg/node_study">
+	
+  <a href="https://www.linkedin.com/in/jorgediasdsg/">
+    <img alt="Made by jorgediasdsg" src="https://img.shields.io/badge/made%20by-jorgediasdsg-blue">
+  </a>
+
+  <a href="https://github.com/jorgediasdsg/node_study/commits/master">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/jorgediasdsg/node_study?color=blue">
+  </a>
+
+  <img alt="License" src="https://img.shields.io/badge/license-MIT-brightgreen?color=blue">
+
+</p>
+
+<p align="center">
+
+  <a href="#">
+    <img alt="html" src="https://img.shields.io/static/v1?color=orange&label=HTML5&message=HTML&%3Fstyle=plastic&logo=html5">
+  </a>
+
+  <a href="#">
+    <img alt="css" src="https://img.shields.io/static/v1?color=blue&label=CSS3&message=CSS&%3Fstyle=plastic&logo=CSS3">
+  </a>
+
+  <a href="#">
+    <img alt="Javascript" src="https://img.shields.io/static/v1?color=yellow&label=javascript&message=JS&%3Fstyle=plastic&logo=javascript">
+  </a>
+    <a href="#">
+    <img alt="Node" src="https://img.shields.io/node/v/latest?color=node&label=node&logo=node&logoColor=node">
+  </a>
+  </a>
+    <a href="#">
+    <img alt="Node" src="https://img.shields.io/badge/react-ReactJS-blue">
+  </a>
+ 
+</p>
+
 </p>
 <p align="center">
  <a href="#history">History</a> •
